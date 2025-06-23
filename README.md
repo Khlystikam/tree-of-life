@@ -1,0 +1,1 @@
+This is a web application for building your own tree of relatives "Tree of Life". Presented simply as an example for a portfolio.

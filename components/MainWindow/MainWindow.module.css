@@ -1,0 +1,18 @@
+.mainWindow {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 50px;
+}
+
+.mainWindowH1 {
+    width: 100%;
+    height: 20px;
+    font-size: 48px;
+    text-align: center;
+    color: #000;
+    margin-top: 150px;
+}
