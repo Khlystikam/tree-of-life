@@ -1,45 +1,94 @@
 import React, { useState } from 'react';
-import styles from './MainWindow.module.css';
-import stylesGlobal from '../../styles/globals.module.css';
 import { motion } from 'framer-motion';
 
-// import AddNewNodeObject from '../Functions/AddNewNodeObject';
-import InputInfoFromUser from '../Functions/Input-Info-from-user/InputInfoFromUser';
+import FirstNodeForm from '../Functions/Input-Info-from-user/FirstNodeForm';
+import AddNodeForm from '../Functions/Input-Info-from-user/AddNodeForm';
+import NodeCardInfo from '../NodeCard/NodeCard';
+import {FamilyNode} from '../../types/family';
+
+import styles from './MainWindow.module.css';
+import stylesGlobal from '../../styles/globals.module.css';
 
 const MainWindow: React.FC = () => {
-    const [visibility, setVisibility] = useState<boolean>(false);
-    const [displayValueVis, setDisplayValueVis] = useState<string>("block");
-    const [opacityValueZero, setOpacityValueZero] = useState<number>(0);
-    const [opacityValueOne, setOpacityValueOne] = useState<number>(1);
+    // Состояние для стартовой кнопки
+    const [buttonVisible, setButtonVisible] = useState(true);
 
-    const chancheVisibility = () => {
-        setOpacityValueZero(1);
-        setOpacityValueOne(0);
-        setDisplayValueVis("none");
-        setVisibility(true);
-    }
+    // true → показываем FirstNodeForm, false → AddNodeForm
+    const [isFirstPush, setIsFirstPush] = useState(true);
+
+    // Флаг, рендерить ли форму в принципе
+    const [showForm, setShowForm] = useState(false);
+
+    // Все добавленные узлы
+    const [nodes, setNodes] = useState<FamilyNode[]>([]);
+
+    /* ===== handlers ===== */
+
+    // Нажали «Начать»
+    const handleStart = () => {
+    setButtonVisible(false);
+    setShowForm(true);
+    };
+
+    // Первый узел
+    const handleFirstSubmit = (data: FamilyNode) => {
+    setNodes([data]);
+    setIsFirstPush(false);
+    setShowForm(false);
+    };
+
+    // Любой последующий узел
+    const handleAddNodeSubmit = (data: FamilyNode) => {
+    setNodes(prev => [...prev, data]);
+    setShowForm(false);
+    };
 
     return (
-        <div className={styles.mainWindow}>
-            <h1 className={styles.mainWindowH1}>Начни составлять свою родословную!</h1>
+    <div className={styles.mainWindow}>
+        <h1 className={styles.mainWindowH1}>Начни составлять свою родословную!</h1>
 
-            <motion.button
-                type="button"
-                onClick={ chancheVisibility }
-                className={ stylesGlobal.button }
-                initial={{ opacity: opacityValueZero, display: displayValueVis }}
-                animate={{ opacity: opacityValueOne, display: displayValueVis }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1, ease: "easeOut"}}
-            >
-                Начать «Древо жизни»
-            </motion.button>
+        {buttonVisible && (
+        <motion.button
+            type="button"
+            onClick={handleStart}
+            className={stylesGlobal.button}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+        >
+            Начать «Древо жизни»
+        </motion.button>
+        )}
 
+        {/* список карточек узлов */}
+        {nodes.map((node, idx) => (
+        <NodeCardInfo
+            key={idx}
+            name={node.name}
+            picture={node.photo}
+            degreeKinship={node.degreeKinship}
+        />
+        ))}
 
-            {/* вызываем input первого добавления node */}
-            <InputInfoFromUser visibility= { visibility } firstPush= { visibility } />
-        </div>
-        );
-    };
+        {/* формы */}
+        {showForm && (
+        isFirstPush
+            ? <FirstNodeForm onSubmit={handleFirstSubmit} />
+            : <AddNodeForm   onSubmit={handleAddNodeSubmit} />
+        )}
+
+        {/* кнопка «Добавить ещё» */}
+        {!showForm && nodes.length > 0 && (
+        <button
+            type="button"
+            className={`${stylesGlobal.button} ${styles.buttonNewNodeNext}`}
+            onClick={() => setShowForm(true)}
+        >
+            Добавить члена семьи
+        </button>
+        )}
+    </div>
+    );
+};
 
 export default MainWindow;

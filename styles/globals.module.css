@@ -26,18 +26,41 @@
     transition: 0.5s;
 }
 
+/* скрываем сам input */
+.hiddenFileInput {
+    display: none;
+}
+
+/* кастомная кнопка */
+.customFileLabel {
+    width: 80%;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #b452cc;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.5s;
+    z-index: 2;
+}
+
+.customFileLabel:hover {
+    background-color: #9e2f95;
+    transition: 0.5s;
+}
+
 /* ------------- */
 
 .treeLifWindow {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
     height: 100vh;
+    overflow-y: scroll;
     font-family: "Mulish", serif;
     font-style: normal;
-    background-color: #ffffff;
-
-    /* background-color: #444343; */
+    background-color: #dcd3d0ad;
 }

@@ -1,13 +1,48 @@
-.popupContainer {
+.addFormContainer {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    width: 200px;
+    height: auto;
+    gap: 50px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.425);
+    z-index: 1;
 }
 
-.photo {
+.addFormBlur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #81614138;
+    filter: blur(10px);
+    z-index: 0;
+}
+
+.inputName, .inputDegreeKinship {
+    width: 95%;
+    font-size: 16px;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+.inputButtonPhoto {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 2;
+}
+
+.buttonAction {
+    margin: 0 auto;
+    width: 80%;
+    z-index: 2;
 }

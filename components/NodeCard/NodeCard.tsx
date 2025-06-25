@@ -3,12 +3,12 @@ import styles from './NodeCard.module.css';
 import { motion } from 'framer-motion';
 
 interface Props {
-    name: string;
-    picture: string;
-    degreeKinship: string;
+    name?: string;
+    picture?: string;
+    degreeKinship?: string;
 }
 
-const NodeCardInfo: React.FC<Props> = ({name = "", picture = "", degreeKinship = ""}) => {
+const NodeCardInfo: React.FC<Props> = ({name, picture, degreeKinship}) => {
     const [visibilityDiv] = useState<boolean>(true);
 
     return (

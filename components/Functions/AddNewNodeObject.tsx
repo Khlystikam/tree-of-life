@@ -10,8 +10,6 @@ interface Props {
 
 const AddNewNodeObject: React.FC<Props> = ({ visibility = false, name = "", picture = "", degreeKinship = ""}) => {
 
-    
-
     if (visibility === true){
         return (
             <NodeCardInfo name={ name } picture={ picture } degreeKinship={ degreeKinship } />
